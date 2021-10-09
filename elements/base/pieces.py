@@ -18,3 +18,7 @@ class Pieces:
 
     def get_position(self):
         return [self.i, self.j]
+
+    def move(self, pos):
+        self.i = pos[0]
+        self.j = pos[1]
