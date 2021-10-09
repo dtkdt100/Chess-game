@@ -9,7 +9,7 @@
 # If the one move is [1, 1], it moves to slant - len()*[1, 1]
 
 
-class MoveDifferent:
+class MoveByPattern:
     def __init__(self, i, j, board, moves, team, min_number=7):
         self.i = i
         self.j = j

@@ -7,7 +7,7 @@
 # moves = [[1, 0], [2, 0]]
 
 
-class Move:
+class MoveWithJumpOver:
     def __init__(self, i, j, board, moves, team):
         self.i = i
         self.j = j
