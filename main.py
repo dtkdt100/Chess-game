@@ -1,5 +1,6 @@
 import board
 import json
+import time
 
 
 def main():
@@ -25,4 +26,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    b = board.Board()
+    # main()
