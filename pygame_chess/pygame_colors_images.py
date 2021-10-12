@@ -1,5 +1,6 @@
 white, black, red = (255, 255, 255), (0, 0, 0), (255, 0, 0)
 pink = (255, 100, 180)
+orange = (255, 100, 10)
 
 base_root = r'C:\Users\dolev\PycharmProjects\Learning\chess_test\pygame_chess\images'
 team1 = base_root + r'\team1'

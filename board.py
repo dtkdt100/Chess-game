@@ -1,7 +1,6 @@
 import elements.base.id
-from pandas import DataFrame
 import pygame
-from pygame_chess.pygame_colors_images import pink
+from pygame_chess.pygame_colors_images import pink, orange
 import elements.base.id
 import pygame_chess.pygame_board
 
@@ -52,14 +51,11 @@ def __create_board__():
 
 
 def get_ending_position(positions):
-    ending = []
-    for pos in positions:
-        ending.append([8 - pos[0] - 1, 8 - pos[1] - 1])
-    return ending
+    return [[8 - pos[0] - 1, 8 - pos[1] - 1] for pos in positions]
 
 
 def find_board_position(mouse_pos):
-    return [mouse_pos[0] // 100, mouse_pos[1] // 100]
+    return [(mouse_pos[i] // 100) for i in range(2)]
 
 
 class Board:
@@ -68,22 +64,16 @@ class Board:
         self.running = True
         self.board = board[0]
         self.instances = board[1]
-        self.current_glow_positions = []
+        self.current_move_positions = []
+        self.current_eat_positions = []
+        self.current_instance_position = []
         self.start_running()
 
     def get_instance(self, pos):
         return self.instances[pos[0]][pos[1]]
 
-    def print_board(self, board2=None, index=False):
-        if board2 is None:
-            board = self.board
-        else:
-            board = board2
-
-        if index:
-            print(DataFrame(board).to_string())
-        else:
-            print('\n'.join(['\t'.join([str(cell) for cell in row]) for row in board]))
+    def get_id_board(self, pos):
+        return self.board[pos[0]][pos[1]]
 
     def move_from(self, from_pos, to_pos):
         i_from = from_pos[0]
@@ -91,37 +81,35 @@ class Board:
         i_to = to_pos[0]
         j_to = to_pos[1]
 
-        self.board[i_to][j_to] = self.board[i_from][j_from]
-        self.instances[i_to][j_to] = self.instances[i_from][j_from]
+        self.board[i_to][j_to] = self.get_id_board(from_pos)
+        self.instances[i_to][j_to] = self.get_instance(from_pos)
 
         self.board[i_from][j_from] = 0
         self.instances[i_from][j_from] = None
 
         self.instances[i_to][j_to].move(to_pos)
 
-    def print_possible_moves(self, positions, eats=None):
-        if eats is None:
-            eats = []
-        board2 = [row.copy() for row in self.board]
-        for pos in positions:
-            board2[pos[0]][pos[1]] = -1
-        for pos in eats:
-            board2[pos[0]][pos[1]] = -2
-        self.print_board(board2=board2)
-
-    def display_images(self):
-        for i in range(len(self.board)):
-            for j in range(len(self.board[i])):
-                if not self.board[i][j] == 0:
-                    pg_board.draw_image([i, j], self.board[i][j])
-
     def handle_quit(self):
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONUP:
-                mouse_pos = pygame.mouse.get_pos()
-                pos = find_board_position(mouse_pos)
-                instance = self.instances[pos[0]][pos[1]]
-                self.draw_possible_move(instance.possible_moves(self.board))
+                pos = find_board_position(pygame.mouse.get_pos())
+                if pos in self.current_move_positions:
+                    pg_board.move(self.board, self.current_instance_position, pos, self.current_move_positions)
+                    self.move_from(self.current_instance_position, pos)
+                    self.current_instance_position = []
+                    self.current_move_positions = []
+                    self.current_eat_positions = []
+                elif pos in self.current_eat_positions:
+                    pg_board.move(self.board, self.current_instance_position, pos, self.current_eat_positions)
+                    self.move_from(self.current_instance_position, pos)
+                    self.clear_possible_move()
+                elif len(self.current_move_positions) > 0 or len(self.current_eat_positions):
+                    self.clear_possible_move()
+                else:
+                    instance = self.instances[pos[0]][pos[1]]
+                    self.current_instance_position = pos
+                    self.draw_possible_move(instance.possible_moves(self.board),
+                                            instance.possible_eats([self.board, self.instances]))
             if event.type == pygame.QUIT:
                 self.running = False
 
@@ -131,18 +119,22 @@ class Board:
             pygame.display.flip()
         pygame.quit()
 
-    def draw_possible_move(self, positions):
-        for pos in positions:
+    def draw_possible_move(self, moves, eats):
+        for pos in moves:
             pg_board.draw_rect(pos, col=pink)
-        self.current_glow_positions = positions
+        for pos in eats:
+            pg_board.draw_rect(pos, col=orange)
+        self.current_move_positions = moves
+        self.current_eat_positions = eats
         pg_board.update()
 
-    def clear_possible_move(self, positions):
-        for pos in positions:
+    def clear_possible_move(self):
+        self.current_instance_position = []
+        for pos in self.current_move_positions:
             pg_board.draw_rect(pos)
-            # col = black
-            # if (pos[0] + pos[1]) % 2 == 0:
-            #     col = white
-            # pygame.draw.rect(screen, col, [pos[0] * size_cell, pos[1] * size_cell, 100, 100])
+        for pos in self.current_eat_positions:
+            pg_board.draw_rect(pos)
+            pg_board.draw_image(pos, self.board[pos[0]][pos[1]])
         pg_board.update()
-        self.current_glow_positions = []
+        self.current_move_positions = []
+        self.current_eat_positions = []

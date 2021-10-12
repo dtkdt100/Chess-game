@@ -26,3 +26,10 @@ class PygameBoard:
         image = self.pygame.image.load(images[id_number])
         image = self.pygame.transform.scale(image, (80, 80))
         self.screen.blit(image, (10 + pos[0] * 100, 10 + pos[1] * 100))
+
+    def move(self, board, from_pos, to_pos, clear_positions):
+        for pos in clear_positions:
+            self.draw_rect(pos)
+        self.draw_image(to_pos, board[from_pos[0]][from_pos[1]])
+        self.draw_rect(from_pos)
+
