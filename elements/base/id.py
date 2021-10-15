@@ -26,11 +26,19 @@ starting_positions = {
 }
 
 starting_positions_classes = {
-    1 or 11: lambda i, j, team: elements.pieces.pawn.Pawn(i, j, team),
-    2 or 12: lambda i, j, team: elements.pieces.knight.Knight(i, j, team),
-    3 or 13: lambda i, j, team: elements.pieces.rook.Rook(i, j, team),
-    4 or 14: lambda i, j, team: elements.pieces.bishop.Bishop(i, j, team),
-    5 or 15: lambda i, j, team: elements.pieces.king.King(i, j, team),
-    6 or 16: lambda i, j, team: elements.pieces.queen.Queen(i, j, team),
+    1: lambda i, j: elements.pieces.pawn.Pawn(i, j, 0),
+    2: lambda i, j: elements.pieces.knight.Knight(i, j, 0),
+    3: lambda i, j: elements.pieces.rook.Rook(i, j, 0),
+    4: lambda i, j: elements.pieces.bishop.Bishop(i, j, 0),
+    5: lambda i, j: elements.pieces.king.King(i, j, 0),
+    6: lambda i, j: elements.pieces.queen.Queen(i, j, 0),
+
+    11: lambda i, j: elements.pieces.pawn.Pawn(i, j, 1),
+    12: lambda i, j: elements.pieces.knight.Knight(i, j, 1),
+    13: lambda i, j: elements.pieces.rook.Rook(i, j, 1),
+    14: lambda i, j: elements.pieces.bishop.Bishop(i, j, 1),
+    15: lambda i, j: elements.pieces.king.King(i, j, 1),
+    16: lambda i, j: elements.pieces.queen.Queen(i, j, 1),
+
 
 }
