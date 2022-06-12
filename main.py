@@ -2,7 +2,7 @@ import board
 import socket
 from threading import Thread
 
-HOST = '192.168.1.218'
+HOST = '192.168.1.103'
 PORT = 65431
 
 
