@@ -1,4 +1,6 @@
 # Default ignored files
-moving_utilities/__pycache__/*
-pygame_chess/__pycache__/*
-venv/*
+
+moving_utilities/__pycache__/move_by_pattern.cpython-38.pyc
+moving_utilities/__pycache__/move_with_jump_over.cpython-38.pyc
+pygame_chess/__pycache__/pygame_board.cpython-38.pyc
+pygame_chess/__pycache__/pygame_colors_images.cpython-38.pyc
