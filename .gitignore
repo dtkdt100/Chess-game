@@ -1,4 +1,4 @@
 # Default ignored files
-moving_utilities/__pycache__/
-pygame_chess/__pycache__/
-venv/
+moving_utilities/__pycache__/*
+pygame_chess/__pycache__/*
+venv/*
