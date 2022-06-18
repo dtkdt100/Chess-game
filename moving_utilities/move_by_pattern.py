@@ -18,7 +18,7 @@ class MoveByPattern:
         self.team = team
         self.min = min_number
 
-    def __moves_eats(self, check_instances=False, instances=None):
+    def _moves_eats(self, check_instances=False, instances=None):
         possible_moves = []
         possible_eats = []
         for one_moves in self.moves:
@@ -42,7 +42,7 @@ class MoveByPattern:
         return possible_moves, possible_eats
 
     def possible_moves(self):
-        return self.__moves_eats()[0]
+        return self._moves_eats()[0]
 
     def possible_eats(self, instances):
-        return self.__moves_eats(check_instances=True, instances=instances)[1]
+        return self._moves_eats(check_instances=True, instances=instances)[1]

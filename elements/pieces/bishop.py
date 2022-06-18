@@ -1,5 +1,5 @@
-from elements.base import pieces
-from moving_utilities import move_by_pattern
+from elements.base.pieces import Pieces
+from moving_utilities.move_by_pattern import MoveByPattern
 
 
 def get_id():
@@ -13,12 +13,12 @@ def get_starting_position():
 moves = [[1, 1], [1, -1], [-1, 1], [-1, -1]]
 
 
-class Bishop(pieces.Pieces):
+class Bishop(Pieces):
 
     def possible_eats(self, board):
-        m = move_by_pattern.MoveByPattern(self.i, self.j, board[0], moves, self.team)
+        m = MoveByPattern(self.i, self.j, board[0], moves, self.team)
         return m.possible_eats(board[1])
 
     def possible_moves(self, board):
-        m = move_by_pattern.MoveByPattern(self.i, self.j, board, moves, self.team)
+        m = MoveByPattern(self.i, self.j, board, moves, self.team)
         return m.possible_moves()

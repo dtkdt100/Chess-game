@@ -1,5 +1,5 @@
-from elements.base import pieces
-from moving_utilities import move_by_pattern
+from elements.base.pieces import Pieces
+from moving_utilities.move_by_pattern import MoveByPattern
 import elements.pieces.rook
 import elements.pieces.bishop
 
@@ -15,12 +15,12 @@ def get_starting_position():
 moves = elements.pieces.rook.moves + elements.pieces.bishop.moves
 
 
-class Queen(pieces.Pieces):
+class Queen(Pieces):
 
     def possible_eats(self, board):
-        m = move_by_pattern.MoveByPattern(self.i, self.j, board[0], moves, self.team)
+        m = MoveByPattern(self.i, self.j, board[0], moves, self.team)
         return m.possible_eats(board[1])
 
     def possible_moves(self, board):
-        m = move_by_pattern.MoveByPattern(self.i, self.j, board, moves, self.team)
+        m = MoveByPattern(self.i, self.j, board, moves, self.team)
         return m.possible_moves()

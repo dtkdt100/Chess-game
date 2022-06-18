@@ -3,7 +3,7 @@ import abc
 
 class Pieces:
 
-    def __init__(self, i, j, team):
+    def __init__(self, i, j, team: int):
         self.i = i
         self.j = j
         self.team = team
@@ -19,6 +19,6 @@ class Pieces:
     def get_position(self):
         return [self.i, self.j]
 
-    def move(self, pos):
+    def move(self, pos: tuple):
         self.i = pos[0]
         self.j = pos[1]

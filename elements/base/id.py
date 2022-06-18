@@ -1,9 +1,11 @@
-import elements.pieces.pawn
-import elements.pieces.knight
-import elements.pieces.rook
-import elements.pieces.bishop
-import elements.pieces.king
-import elements.pieces.queen
+from elements.pieces.pawn import Pawn
+from elements.pieces.knight import Knight
+from elements.pieces.rook import Rook
+from elements.pieces.bishop import Bishop
+from elements.pieces.king import King
+from elements.pieces.queen import Queen
+
+import elements
 
 ids = {
     1 or 11: "pawn",
@@ -26,19 +28,19 @@ starting_positions = {
 }
 
 starting_positions_classes = {
-    1: lambda i, j: elements.pieces.pawn.Pawn(i, j, 0),
-    2: lambda i, j: elements.pieces.knight.Knight(i, j, 0),
-    3: lambda i, j: elements.pieces.rook.Rook(i, j, 0),
-    4: lambda i, j: elements.pieces.bishop.Bishop(i, j, 0),
-    5: lambda i, j: elements.pieces.king.King(i, j, 0),
-    6: lambda i, j: elements.pieces.queen.Queen(i, j, 0),
+    1: lambda i, j: Pawn(i, j, 0),
+    2: lambda i, j: Knight(i, j, 0),
+    3: lambda i, j: Rook(i, j, 0),
+    4: lambda i, j: Bishop(i, j, 0),
+    5: lambda i, j: King(i, j, 0),
+    6: lambda i, j: Queen(i, j, 0),
 
-    11: lambda i, j: elements.pieces.pawn.Pawn(i, j, 1),
-    12: lambda i, j: elements.pieces.knight.Knight(i, j, 1),
-    13: lambda i, j: elements.pieces.rook.Rook(i, j, 1),
-    14: lambda i, j: elements.pieces.bishop.Bishop(i, j, 1),
-    15: lambda i, j: elements.pieces.king.King(i, j, 1),
-    16: lambda i, j: elements.pieces.queen.Queen(i, j, 1),
+    11: lambda i, j: Pawn(i, j, 1),
+    12: lambda i, j: Knight(i, j, 1),
+    13: lambda i, j: Rook(i, j, 1),
+    14: lambda i, j: Bishop(i, j, 1),
+    15: lambda i, j: King(i, j, 1),
+    16: lambda i, j: Queen(i, j, 1),
 
 
 }
